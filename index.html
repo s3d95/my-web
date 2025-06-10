@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saad Hwareen - Full Stack Developer & Software Engineer</title>
+
+    <!-- Enhanced Meta Tags -->
+    <meta name="description" content="Saad Hwareen - Experienced Full Stack Developer & Software Engineer specializing in web applications, mobile apps, and desktop systems. Expert in React, Node.js, MongoDB, and modern development tools.">
+    <meta name="keywords" content="Saad Hwareen, full stack developer, software engineer, web developer, React developer, Node.js, MongoDB, JavaScript, TypeScript, mobile app development, desktop applications, programming, Palestine developer">
+    <meta name="author" content="Saad Hwareen">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6c63ff">
+    
+    <!-- Enhanced Open Graph Tags -->
+    <meta property="og:title" content="Saad Hwareen - Full Stack Developer & Software Engineer">
+    <meta property="og:description" content="Experienced Full Stack Developer & Software Engineer building innovative software solutions. Specializing in web applications, mobile apps, and desktop systems.">
+    <meta property="og:image" content="og-image.jpg">
+    <meta property="og:url" content="https://saad-dev.online/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Saad Hwareen Portfolio">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Saad Hwareen - Full Stack Developer">
+    <meta name="twitter:description" content="Experienced Full Stack Developer & Software Engineer building the future.">
+    <meta name="twitter:image" content="og-image.jpg">
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- DNS Prefetch for External Links -->
+    <link rel="dns-prefetch" href="//github.com">
+    <link rel="dns-prefetch" href="//instagram.com">
+    <link rel="dns-prefetch" href="//facebook.com">
+    <link rel="dns-prefetch" href="//discord.com">
+    <link rel="dns-prefetch" href="//wa.me">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Saad Hwareen",
+        "jobTitle": "Full Stack Developer & Software Engineer",
+        "description": "Experienced Full Stack Developer & Software Engineer specializing in web applications, mobile apps, and desktop systems.",
+        "url": "https://saad-dev.online/",
+        "image": "saad.png",
+        "sameAs": [
+            "https://github.com/s3d95",
+            "https://www.instagram.com/saad_hwareen/",
+            "https://www.facebook.com/s3d95/",
+            "https://nightm.online/"
+        ],
+        "knowsAbout": [
+            "JavaScript",
+            "TypeScript",
+            "React",
+            "Node.js",
+            "MongoDB",
+            "Web Development",
+            "Mobile App Development",
+            "Software Engineering"
+        ],
+        "email": "sa3dhwareen95@gmail.com"
+    }
+    </script>
+    
+    <!-- Performance and Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen" aria-hidden="true">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Skip to Content for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="container">
+        <div id="particles-js" aria-hidden="true"></div>
+
+        <header role="banner">
+            <nav role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="main-nav">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul id="main-nav" class="nav-menu">
+                    <li><a href="#home" class="nav-link" aria-label="Go to home section">Home</a></li>
+                    <li><a href="#about" class="nav-link" aria-label="Go to about section">About</a></li>
+                    <li><a href="#skills" class="nav-link" aria-label="Go to skills section">Skills</a></li>
+                    <li><a href="#projects" class="nav-link" aria-label="Go to projects section">Projects</a></li>
+                    <li><a href="#contact" class="nav-link" aria-label="Go to contact section">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main id="main-content" role="main">
+            <section id="home" class="hero-section" aria-labelledby="hero-heading">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 id="hero-heading">
+                            <span class="greeting">Hey, I'm</span>
+                            <span class="name">Saad Hwareen</span>
+                        </h1>
+                        <p class="tagline">Experienced Full Stack Developer & Software Engineer | Building the Future</p>
+                        <div class="hero-buttons">
+                            <a href="#contact" class="btn secondary-btn" aria-label="Contact Saad Hwareen">
+                                <i class="fas fa-envelope" aria-hidden="true"></i> 
+                                <span>Contact Me</span>
+                            </a>
+                            <a href="#about" class="btn primary-btn" aria-label="Learn more about Saad">
+                                <i class="fas fa-user" aria-hidden="true"></i> 
+                                <span>About Me</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="avatar-container">
+                            <div class="avatar-circle" role="img" aria-label="Saad Hwareen's profile picture"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="about-section" aria-labelledby="about-heading">
+                <h2 id="about-heading" class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-grid">
+                        <div class="about-text">
+                            <div class="about-intro">
+                                <h3>Professional Overview</h3>
+                                <p>
+                                    I am a passionate self-taught full stack developer with extensive experience in building modern web applications, mobile applications, and desktop systems. Using cutting-edge technologies and best practices, I create innovative software solutions that drive business growth and enhance user experiences.
+                                </p>
+                                <p>
+                                    With a proven track record of delivering high-quality projects on time and improving application performance by up to 95%, I thrive in challenging environments where I can apply my technical expertise to solve complex problems and build scalable, maintainable software solutions.
+                                </p>
+                            </div>
+                            
+                            <div class="achievements">
+                                <h3>Key Achievements</h3>
+                                <div class="achievement-list">
+                                    <div class="achievement-item">
+                                        <div class="achievement-icon">
+                                            <i class="fas fa-rocket"></i>
+                                        </div>
+                                        <div class="achievement-content">
+                                            <h4>Performance Optimization</h4>
+                                            <p>Improved application performance by up to 95% through code optimization and best practices</p>
+                                        </div>
+                                    </div>
+                                    <div class="achievement-item">
+                                        <div class="achievement-icon">
+                                            <i class="fas fa-code"></i>
+                                        </div>
+                                        <div class="achievement-content">
+                                            <h4>Full Stack Expertise</h4>
+                                            <p>Proficient in both frontend and backend technologies with modern frameworks</p>
+                                        </div>
+                                    </div>
+                                    <div class="achievement-item">
+                                        <div class="achievement-icon">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        <div class="achievement-content">
+                                            <h4>Client Satisfaction</h4>
+                                            <p>Consistently delivered projects on time with high client satisfaction rates</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="about-stats">
+                            <div class="stats-container">
+                                <div class="stat-item">
+                                    <div class="stat-number" data-target="50">0</div>
+                                    <div class="stat-label">Projects Completed</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number" data-target="5">0</div>
+                                    <div class="stat-label">Years Experience</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number" data-target="95">0</div>
+                                    <div class="stat-label">Performance Boost %</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number" data-target="100">0</div>
+                                    <div class="stat-label">Client Satisfaction %</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="skills-section" aria-labelledby="skills-heading">
+                <h2 id="skills-heading" class="section-title">Technical Skills</h2>
+                <div class="skills-content">
+                    <div class="skills-grid" role="list" aria-label="Technical skills">
+                        <div class="skill-category">
+                            <h3>Frontend Development</h3>
+                            <div class="skills-icons">
+                                <div class="skill-icon" title="React" role="listitem" tabindex="0">
+                                    <i class="fab fa-react" aria-hidden="true"></i>
+                                    <span class="skill-name">React</span>
+                                </div>
+                                <div class="skill-icon" title="JavaScript" role="listitem" tabindex="0">
+                                    <i class="fab fa-js-square" aria-hidden="true"></i>
+                                    <span class="skill-name">JavaScript</span>
+                                </div>
+                                <div class="skill-icon" title="TypeScript" role="listitem" tabindex="0">
+                                    <i class="fas fa-code" aria-hidden="true"></i>
+                                    <span class="skill-name">TypeScript</span>
+                                </div>
+                                <div class="skill-icon" title="CSS3" role="listitem" tabindex="0">
+                                    <i class="fab fa-css3-alt" aria-hidden="true"></i>
+                                    <span class="skill-name">CSS3</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3>Backend Development</h3>
+                            <div class="skills-icons">
+                                <div class="skill-icon" title="Node.js" role="listitem" tabindex="0">
+                                    <i class="fab fa-node-js" aria-hidden="true"></i>
+                                    <span class="skill-name">Node.js</span>
+                                </div>
+                                <div class="skill-icon" title="MongoDB" role="listitem" tabindex="0">
+                                    <i class="fas fa-database" aria-hidden="true"></i>
+                                    <span class="skill-name">MongoDB</span>
+                                </div>
+                                <div class="skill-icon" title="Python" role="listitem" tabindex="0">
+                                    <i class="fab fa-python" aria-hidden="true"></i>
+                                    <span class="skill-name">Python</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3>Tools & Technologies</h3>
+                            <div class="skills-icons">
+                                <div class="skill-icon" title="Git" role="listitem" tabindex="0">
+                                    <i class="fab fa-git-alt" aria-hidden="true"></i>
+                                    <span class="skill-name">Git</span>
+                                </div>
+                                <div class="skill-icon" title="Docker" role="listitem" tabindex="0">
+                                    <i class="fab fa-docker" aria-hidden="true"></i>
+                                    <span class="skill-name">Docker</span>
+                                </div>
+                                <div class="skill-icon" title="AWS" role="listitem" tabindex="0">
+                                    <i class="fab fa-aws" aria-hidden="true"></i>
+                                    <span class="skill-name">AWS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="projects-section" aria-labelledby="projects-heading">
+                <h2 id="projects-heading" class="section-title">Featured Projects</h2>
+                <div class="projects-content">
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Live Demo" target="_blank" rel="noopener noreferrer">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Source Code" target="_blank" rel="noopener noreferrer">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="project-placeholder">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>E-Commerce Platform</h3>
+                                <p>Full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, payment integration, and admin dashboard.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Node.js</span>
+                                    <span class="tech-tag">MongoDB</span>
+                                    <span class="tech-tag">Stripe</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Live Demo" target="_blank" rel="noopener noreferrer">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Source Code" target="_blank" rel="noopener noreferrer">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="project-placeholder">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Task Management App</h3>
+                                <p>Modern task management application with real-time collaboration, drag-and-drop functionality, and team workspace features.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">TypeScript</span>
+                                    <span class="tech-tag">Socket.io</span>
+                                    <span class="tech-tag">PostgreSQL</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Live Demo" target="_blank" rel="noopener noreferrer">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Source Code" target="_blank" rel="noopener noreferrer">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="project-placeholder">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Analytics Dashboard</h3>
+                                <p>Comprehensive analytics dashboard with interactive charts, real-time data visualization, and customizable reporting features.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Vue.js</span>
+                                    <span class="tech-tag">D3.js</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">FastAPI</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Live Demo" target="_blank" rel="noopener noreferrer">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Source Code" target="_blank" rel="noopener noreferrer">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="project-placeholder">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Real-time Chat App</h3>
+                                <p>Modern chat application with real-time messaging, file sharing, group chats, and end-to-end encryption capabilities.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">React Native</span>
+                                    <span class="tech-tag">Socket.io</span>
+                                    <span class="tech-tag">Redis</span>
+                                    <span class="tech-tag">AWS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Live Demo" target="_blank" rel="noopener noreferrer">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Source Code" target="_blank" rel="noopener noreferrer">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="project-placeholder">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>AI Content Generator</h3>
+                                <p>AI-powered content generation platform with natural language processing, multiple content types, and API integration.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Next.js</span>
+                                    <span class="tech-tag">OpenAI API</span>
+                                    <span class="tech-tag">Prisma</span>
+                                    <span class="tech-tag">Vercel</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Live Demo" target="_blank" rel="noopener noreferrer">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Source Code" target="_blank" rel="noopener noreferrer">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="project-placeholder">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Gaming Platform</h3>
+                                <p>Multiplayer gaming platform with real-time gameplay, leaderboards, user profiles, and social features for competitive gaming.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Unity</span>
+                                    <span class="tech-tag">C#</span>
+                                    <span class="tech-tag">Photon</span>
+                                    <span class="tech-tag">Firebase</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+                <h2 id="contact-heading" class="section-title">Connect With Me</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Let's Get In Touch</h3>
+                        <p>
+                            Ready to collaborate on your next project? Feel free to reach out through any of these platforms:
+                        </p>
+                        <div class="social-links-container">
+                            <div class="social-links" role="list" aria-label="Social media links">
+                                <a href="https://discordapp.com/users/498133108118519839" class="social-link" title="Discord" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Contact via Discord">
+                                    <i class="fab fa-discord" aria-hidden="true"></i>
+                                    <span class="sr-only">Discord</span>
+                                </a>
+                                <a href="https://www.instagram.com/saad_hwareen/" class="social-link" title="Instagram" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Follow on Instagram">
+                                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                                    <span class="sr-only">Instagram</span>
+                                </a>
+                                <a href="https://www.facebook.com/s3d95/" class="social-link" title="Facebook" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Connect on Facebook">
+                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                    <span class="sr-only">Facebook</span>
+                                </a>
+                                <a href="https://github.com/s3d95" class="social-link" title="GitHub" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="View GitHub profile">
+                                    <i class="fab fa-github" aria-hidden="true"></i>
+                                    <span class="sr-only">GitHub</span>
+                                </a>
+                                <a href="https://wa.me/+972525514479?text=hi" class="social-link" title="WhatsApp" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Message on WhatsApp">
+                                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                                    <span class="sr-only">WhatsApp</span>
+                                </a>
+                                <a href="https://nightm.online/" class="social-link" title="Website" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Visit website">
+                                    <i class="fas fa-globe" aria-hidden="true"></i>
+                                    <span class="sr-only">Website</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="email-container">
+                            <h3>Email Me</h3>
+                            <div class="email-copy">
+                                <input type="text" id="emailCopy" value="sa3dhwareen95@gmail.com" readonly aria-label="Email address">
+                                <button id="copyEmailBtn" class="btn secondary-btn" data-copied="Copied!" aria-label="Copy email address">
+                                    <i class="fas fa-copy" aria-hidden="true"></i> 
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer role="contentinfo">
+            <p>
+                © 2025 Saad Hwareen. All rights reserved.
+            </p>
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <a href="#home" id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top" title="Back to top">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3956465539113693" crossorigin="anonymous"></script>
+</body>
+</html>
