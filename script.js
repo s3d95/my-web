@@ -1,538 +1,261 @@
-// Global variables
-let scene, camera, renderer, particles;
-let mouse = { x: 0, y: 0 };
-let windowHalf = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-let currentSection = 0;
-const sections = ['intro', 'about', 'skills', 'contact'];
-let isLoading = true;
+// Sa3d95 Portfolio - Ultra Premium Advanced Logic
 
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initLoader();
-    initThreeJS();
-    initNavigation();
-    // initCursor(); // Disabled custom cursor
-    initAnimations();
-    
-    // Start loading sequence
-    setTimeout(() => {
-        hideLoader();
-        showSection(0);
-    }, 1000);
-});
+// --- 0. Elite Preloader Logic ---
+const preloader = document.getElementById('preloader');
+const loaderProgress = document.querySelector('.loader-progress');
+let progress = 0;
 
-// Loading Screen
-function initLoader() {
-    const loader = document.getElementById('loading-screen');
-    const progress = document.querySelector('.loader-progress');
-    
-    // Simulate loading progress
-    let loadProgress = 0;
-    const loadInterval = setInterval(() => {
-        loadProgress += Math.random() * 15;
-        if (loadProgress >= 100) {
-            loadProgress = 100;
-            clearInterval(loadInterval);
-        }
-    }, 100);
-}
+const fakeLoading = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress > 100) progress = 100;
+    if (loaderProgress) loaderProgress.style.width = `${progress}%`;
 
-function hideLoader() {
-    const loader = document.getElementById('loading-screen');
-    loader.classList.add('hidden');
-    isLoading = false;
-    
-    // Start animations after loader is hidden
-    setTimeout(() => {
-        animateTitle();
-    }, 500);
-}
-
-// Three.js Setup
-function initThreeJS() {
-    // Scene setup
-    scene = new THREE.Scene();
-    
-    // Camera setup
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.z = 500;
-    
-    // Renderer setup
-    renderer = new THREE.WebGLRenderer({ 
-        canvas: document.getElementById('webgl-canvas'),
-        alpha: true,
-        antialias: true
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0);
-    
-    // Create particle system
-    createParticles();
-    
-    // Start animation loop
-    animate();
-    
-    // Handle window resize
-    window.addEventListener('resize', onWindowResize);
-    
-    // Handle mouse movement
-    document.addEventListener('mousemove', onMouseMove);
-}
-
-function createParticles() {
-    const particleCount = 1000;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    
-    for (let i = 0; i < particleCount * 3; i += 3) {
-        // Position
-        positions[i] = (Math.random() - 0.5) * 2000;
-        positions[i + 1] = (Math.random() - 0.5) * 2000;
-        positions[i + 2] = (Math.random() - 0.5) * 1000;
-        
-        // Color (white with varying opacity)
-        colors[i] = 1;
-        colors[i + 1] = 1;
-        colors[i + 2] = 1;
+    if (progress === 100) {
+        clearInterval(fakeLoading);
+        setTimeout(() => {
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }
+            // Trigger initial scroll reveals with a slight delay for dramatic effect
+            setTimeout(() => {
+                document.querySelectorAll('.reveal-up').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) el.classList.add('active');
+                });
+            }, 300);
+        }, 500);
     }
-    
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    
-    const material = new THREE.PointsMaterial({
-        size: 2,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending
-    });
-    
-    particles = new THREE.Points(geometry, material);
-    scene.add(particles);
-}
+}, 120);
 
+document.addEventListener('DOMContentLoaded', () => {
 
-
-function animate() {
-    requestAnimationFrame(animate);
-    
-    if (!isLoading) {
-        // Rotate particles
-        if (particles) {
-            particles.rotation.x += 0.0005;
-            particles.rotation.y += 0.001;
-        }
-        
-
-        
-        // Mouse interaction - improved responsiveness
-        camera.position.x += (mouse.x - camera.position.x) * 0.15;
-        camera.position.y += (-mouse.y - camera.position.y) * 0.15;
-        camera.lookAt(scene.position);
-    }
-    
-    renderer.render(scene, camera);
-}
-
-function onMouseMove(event) {
-    mouse.x = (event.clientX - windowHalf.x) * 0.3;
-    mouse.y = (event.clientY - windowHalf.y) * 0.3;
-}
-
-function onWindowResize() {
-    windowHalf.x = window.innerWidth / 2;
-    windowHalf.y = window.innerHeight / 2;
-    
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-// Navigation
-function initNavigation() {
-    const navItems = document.querySelectorAll('.nav-item');
-    
-    navItems.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            showSection(index);
+    /* --- 1. Spotlight Box Logic --- */
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
         });
     });
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowUp' && currentSection > 0) {
-            showSection(currentSection - 1);
-        } else if (e.key === 'ArrowDown' && currentSection < sections.length - 1) {
-            showSection(currentSection + 1);
-        }
-    });
-    
-    // Mouse wheel navigation
-    let isScrolling = false;
-    document.addEventListener('wheel', (e) => {
-        if (isScrolling) return;
-        
-        isScrolling = true;
-        setTimeout(() => isScrolling = false, 1000);
-        
-        if (e.deltaY > 0 && currentSection < sections.length - 1) {
-            showSection(currentSection + 1);
-        } else if (e.deltaY < 0 && currentSection > 0) {
-            showSection(currentSection - 1);
-        }
-    });
-}
 
-function showSection(index) {
-    if (index === currentSection) return;
-    
-    // Hide current section
-    const currentSectionEl = document.getElementById(sections[currentSection]);
-    if (currentSectionEl) {
-        currentSectionEl.classList.remove('active');
-    }
-    
-    // Update navigation
-    document.querySelectorAll('.nav-item').forEach((item, i) => {
-        item.classList.toggle('active', i === index);
-    });
-    
-    // Show new section
-    setTimeout(() => {
-        currentSection = index;
-        const newSectionEl = document.getElementById(sections[currentSection]);
-        if (newSectionEl) {
-            newSectionEl.classList.add('active');
-        }
-        
-        // Update progress indicator
-        updateProgress();
-        
-        // Trigger section-specific animations
-        triggerSectionAnimations(currentSection);
-    }, 400);
-}
+    /* --- 2. Magnetic Elements (Buttons & Icons) --- */
+    const magneticEls = document.querySelectorAll('.magnetic');
 
-function updateProgress() {
-    const progressBar = document.querySelector('.progress-bar');
-    if (progressBar) {
-        const progress = ((currentSection + 1) / sections.length) * 100;
-        progressBar.style.height = progress + '%';
-    }
-}
-
-// Custom Cursor
-function initCursor() {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor';
-    document.body.appendChild(cursor);
-    
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-    
-    // Cursor hover effects
-    const hoverElements = document.querySelectorAll('.nav-item, .social-link');
-    hoverElements.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-}
-
-// Animations
-function initAnimations() {
-    // GSAP animations setup (TextPlugin not needed for current animations)
-    // gsap.registerPlugin(TextPlugin);
-}
-
-function animateTitle() {
-    const titleLines = document.querySelectorAll('.title-line');
-    
-    gsap.fromTo(titleLines, 
-        { 
-            y: 100, 
-            opacity: 0 
-        },
-        { 
-            y: 0, 
-            opacity: 1, 
-            duration: 1.2, 
-            stagger: 0.2, 
-            ease: "power3.out" 
-        }
-    );
-    
-    // Animate subtitle
-    gsap.fromTo('.subtitle', 
-        { 
-            y: 50, 
-            opacity: 0 
-        },
-        { 
-            y: 0, 
-            opacity: 1, 
-            duration: 1, 
-            delay: 0.8, 
-            ease: "power2.out" 
-        }
-    );
-    
-    // Animate description
-    gsap.fromTo('.intro-description', 
-        { 
-            y: 30, 
-            opacity: 0 
-        },
-        { 
-            y: 0, 
-            opacity: 1, 
-            duration: 1, 
-            delay: 1.2, 
-            ease: "power2.out" 
-        }
-    );
-}
-
-function triggerSectionAnimations(sectionIndex) {
-    const section = document.getElementById(sections[sectionIndex]);
-    if (!section) return;
-    
-    switch(sectionIndex) {
-        case 0: // Intro
-            animateTitle();
-            break;
-            
-        case 1: // About
-            animateAboutSection();
-            break;
-            
-        case 2: // Skills
-            animateSkillsSection();
-            break;
-            
-        case 3: // Contact
-            animateContactSection();
-            break;
-    }
-}
-
-function animateAboutSection() {
-    const title = document.querySelector('#about .section-title');
-    const textElements = document.querySelectorAll('#about .about-text p');
-    const statItems = document.querySelectorAll('#about .stat-item');
-    
-    gsap.fromTo(title, 
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
-    );
-    
-    gsap.fromTo(textElements, 
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, delay: 0.3, ease: "power2.out" }
-    );
-    
-    gsap.fromTo(statItems, 
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, delay: 0.6, ease: "back.out(1.7)" }
-    );
-    
-    // Animate stat numbers
-    statItems.forEach(item => {
-        const number = item.querySelector('.stat-number');
-        const finalValue = parseInt(number.getAttribute('data-target'));
-        gsap.fromTo(number, 
-            { textContent: 0 },
-            { 
-                textContent: finalValue, 
-                duration: 2, 
-                delay: 1,
-                ease: "power2.out",
-                snap: { textContent: 1 },
-                onUpdate: function() {
-                    number.textContent = Math.ceil(number.textContent);
-                }
-            }
-        );
-    });
-}
-
-function animateSkillsSection() {
-    const title = document.querySelector('#skills .section-title');
-    const skillCategories = document.querySelectorAll('#skills .skill-category');
-    
-    gsap.fromTo(title, 
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
-    );
-    
-    gsap.fromTo(skillCategories, 
-        { y: 50, opacity: 0, scale: 0.9 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, delay: 0.3, ease: "power2.out" }
-    );
-    
-    // Animate skill icons
-    skillCategories.forEach((category, categoryIndex) => {
-        const skillIcons = category.querySelectorAll('.skill-icon');
-        gsap.fromTo(skillIcons, 
-            { y: 30, opacity: 0, scale: 0.8 },
-            { 
-                y: 0, 
-                opacity: 1, 
-                scale: 1,
-                duration: 0.6, 
-                stagger: 0.1, 
-                delay: 0.6 + (categoryIndex * 0.2), 
-                ease: "back.out(1.7)" 
-            }
-        );
-        
-        // Add floating animation to icons
-        skillIcons.forEach((icon, iconIndex) => {
-            gsap.to(icon, {
-                y: -5,
-                duration: 2 + (iconIndex * 0.2),
-                repeat: -1,
-                yoyo: true,
-                ease: "power1.inOut",
-                delay: 1 + (categoryIndex * 0.3) + (iconIndex * 0.1)
+    if (window.innerWidth > 768) {
+        magneticEls.forEach((el) => {
+            const wrapper = el.closest('.magnetic-wrap') || el;
+            wrapper.addEventListener('mousemove', (e) => {
+                const rect = wrapper.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px)`;
+            });
+            wrapper.addEventListener('mouseleave', () => {
+                el.style.transform = `translate(0px, 0px)`;
             });
         });
-    });
-}
-
-
-
-function animateContactSection() {
-    const title = document.querySelector('#contact .section-title');
-    const subtitle = document.querySelector('#contact .contact-subtitle');
-    const description = document.querySelector('#contact .contact-description');
-    const socialIcons = document.querySelectorAll('#contact .social-icon');
-    const emailSection = document.querySelector('#contact .email-section');
-    
-    gsap.fromTo(title, 
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
-    );
-    
-    gsap.fromTo(subtitle, 
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power2.out" }
-    );
-    
-    gsap.fromTo(description, 
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, delay: 0.4, ease: "power2.out" }
-    );
-    
-    gsap.fromTo(socialIcons, 
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, delay: 0.6, ease: "back.out(1.7)" }
-    );
-    
-    gsap.fromTo(emailSection, 
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, delay: 1, ease: "power2.out" }
-    );
-    
-    // Add floating animation to social icons
-    socialIcons.forEach((icon, index) => {
-        gsap.to(icon, {
-            y: -10,
-            duration: 2 + (index * 0.2),
-            repeat: -1,
-            yoyo: true,
-            ease: "power2.inOut",
-            delay: 1.5 + (index * 0.1)
-        });
-    });
-}
-
-// Utility functions
-function lerp(start, end, factor) {
-    return start + (end - start) * factor;
-}
-
-function map(value, start1, stop1, start2, stop2) {
-    return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-}
-
-// Performance optimization
-function optimizePerformance() {
-    // Reduce particle count on mobile
-    if (window.innerWidth < 768 && particles && particles.geometry) {
-        const positions = particles.geometry.attributes.position.array;
-        const reducedPositions = new Float32Array(positions.length / 2);
-        
-        for (let i = 0; i < reducedPositions.length; i++) {
-            reducedPositions[i] = positions[i * 2];
-        }
-        
-        particles.geometry.setAttribute('position', new THREE.BufferAttribute(reducedPositions, 3));
     }
-}
 
-// Initialize performance optimizations
-window.addEventListener('load', optimizePerformance);
-window.addEventListener('resize', optimizePerformance);
-
-// Preload assets
-function preloadAssets() {
-    // Preload any additional assets here
-    return Promise.resolve();
-}
-
-// Error handling
-window.addEventListener('error', (e) => {
-    console.error('An error occurred:', e.error);
-});
-
-// Cleanup on page unload
-window.addEventListener('beforeunload', () => {
-    if (renderer) {
-        renderer.dispose();
-    }
-});
-
-// Copy email functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const copyBtn = document.querySelector('.copy-btn');
-    const emailInput = document.querySelector('.email-input');
-    
-    if (copyBtn && emailInput) {
-        copyBtn.addEventListener('click', function() {
-            emailInput.select();
-            emailInput.setSelectionRange(0, 99999); // For mobile devices
-            
-            try {
-                document.execCommand('copy');
-                
-                // Visual feedback
-                const originalText = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                copyBtn.style.background = 'rgba(34, 197, 94, 0.8)';
-                
-                setTimeout(() => {
-                    copyBtn.innerHTML = originalText;
-                    copyBtn.style.background = 'rgba(99, 102, 241, 0.8)';
-                }, 2000);
-                
-            } catch (err) {
-                console.error('Failed to copy email: ', err);
+    /* --- 3. Scroll Reveal Observer --- */
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                obs.unobserve(entry.target);
             }
         });
-    }
-});
+    }, { threshold: 0.1 });
 
-// Cleanup on page unload - dispose of Three.js resources
-window.addEventListener('beforeunload', () => {
-    if (renderer) {
-        renderer.dispose();
+    document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
+    /* --- 4. Advanced Interactive Canvas Background (Web of Nodes) --- */
+    const canvas = document.getElementById('interactive-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            const particleCount = (width * height) / 20000;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.baseRadius = Math.random() * 1.5 + 0.5;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.baseRadius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.fill();
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > height) this.vy = -this.vy;
+                this.draw();
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                for (let j = i; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 - distance / 2400})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+                if (mouse.x != null) {
+                    let dx = particles[i].x - mouse.x;
+                    let dy = particles[i].y - mouse.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 255, 255, 0.1)`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        initCanvas();
+        animateCanvas();
+        window.addEventListener('resize', initCanvas);
     }
-    if (particles) {
-        if (particles.geometry) particles.geometry.dispose();
-        if (particles.material) particles.material.dispose();
+
+    /* --- 5. Hover Decrypt Effect (Hacker Text) --- */
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+    document.querySelectorAll('.hover-decrypt').forEach(el => {
+        el.dataset.value = el.innerText;
+        el.addEventListener('mouseenter', event => {
+            let iterations = 0;
+            const originalText = event.target.dataset.value;
+            clearInterval(el.decryptInterval); 
+            el.decryptInterval = setInterval(() => {
+                event.target.innerText = originalText.split("")
+                    .map((letter, index) => {
+                        if (index < iterations || originalText[index] === ' ') return originalText[index];
+                        return letters[Math.floor(Math.random() * letters.length)];
+                    }).join("");
+                if (iterations >= originalText.length) clearInterval(el.decryptInterval);
+                iterations += 1 / 2;
+            }, 30);
+        });
+    });
+
+    /* --- 6. 3D Tilt Effect on Project Cards --- */
+    const projectCards = document.querySelectorAll('.project-card');
+    if (window.innerWidth > 768) {
+        projectCards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
     }
+
+    /* --- 7. Aurora Orb Tracker --- */
+    const auroraOrb = document.getElementById('aurora-orb');
+    window.addEventListener('mousemove', (e) => {
+        if (auroraOrb && window.innerWidth > 768) {
+            auroraOrb.style.setProperty('--orb-x', `${e.clientX}px`);
+            auroraOrb.style.setProperty('--orb-y', `${e.clientY}px`);
+        }
+    });
+
+    /* --- 8. Mac OS Terminal Typewriter --- */
+    const terminalBody = document.getElementById('terminal-body');
+    if (terminalBody) {
+        const terminalCommands = [
+            "ssh saad@root",
+            "Access Granted. Authenticated.",
+            "Fetching user_profile.json...",
+            "Name: Saad",
+            "Capabilities loaded: [React, Node.js, UI/UX, RE]",
+            "System Performance: 95% Optimized.",
+            "Ready to craft dynamic solutions."
+        ];
+        let termCmdIndex = 0;
+        let termCharIndex = 0;
+        let lineDiv = null;
+        let termCursor = null;
+
+        const typeTerminalLine = () => {
+            if (termCmdIndex >= terminalCommands.length) return;
+            if (termCharIndex === 0) {
+                lineDiv = document.createElement('div');
+                lineDiv.className = 'term-line';
+                lineDiv.innerHTML = `<span class="term-prefix">~</span><span class="term-text"></span><span class="term-cursor"></span>`;
+                terminalBody.appendChild(lineDiv);
+                termCursor = lineDiv.querySelector('.term-cursor');
+            }
+            const currentStr = terminalCommands[termCmdIndex];
+            const textEl = lineDiv.querySelector('.term-text');
+            if (termCharIndex < currentStr.length) {
+                textEl.textContent += currentStr[termCharIndex];
+                termCharIndex++;
+                setTimeout(typeTerminalLine, Math.random() * 40 + 10);
+            } else {
+                if (termCursor) termCursor.remove();
+                termCmdIndex++;
+                termCharIndex = 0;
+                if (termCmdIndex === terminalCommands.length) {
+                    textEl.innerHTML += `<span class="term-cursor"></span>`;
+                } else {
+                    setTimeout(typeTerminalLine, 500);
+                }
+            }
+        };
+
+        const termObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                setTimeout(typeTerminalLine, 800);
+                termObserver.disconnect();
+            }
+        }, { threshold: 0.5 });
+        termObserver.observe(terminalBody);
+    }
+
 });
