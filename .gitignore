@@ -1,0 +1,13 @@
+# Local tooling / editor config (not part of the deployed site)
+.claude/
+
+# Build-only logo vectorizer (generated logo-shape.js; deps are huge)
+_trace/
+
+# Stray build intermediate
+mask.png
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log

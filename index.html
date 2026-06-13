@@ -3,242 +3,269 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saad | Elite Software Engineer</title>
-    <!-- Favicon -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#050506">
+
+    <title>Saad — Software Developer & Engineer</title>
+    <meta name="description"
+        content="Saad Hwareen — Software Developer & Engineer building Windows software, mobile apps, and websites — clean, fast, and reliable.">
+    <meta name="author" content="Saad Hwareen">
+    <meta name="keywords"
+        content="Saad, Saad Hwareen, Full Stack Developer, Software Engineer, Web Developer, React, Node.js, WebGL, Three.js, Reverse Engineering">
+    <link rel="canonical" href="https://sa3d95.online/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Saad — Software Developer & Engineer">
+    <meta property="og:description"
+        content="Building Windows software, mobile apps, and websites — clean, fast, and reliable.">
+    <meta property="og:image" content="https://sa3d95.online/og-image.jpg">
+    <meta property="og:url" content="https://sa3d95.online/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Saad — Software Developer & Engineer">
+    <meta name="twitter:description"
+        content="Building Windows software, mobile apps, and websites — clean, fast, and reliable.">
+    <meta name="twitter:image" content="https://sa3d95.online/og-image.jpg">
+
+    <!-- Icons / PWA -->
     <link rel="icon" type="image/png" href="logo.png">
-    <!-- Ultra Sleek Fonts -->
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <!-- 3D engine (ES modules via CDN — no build step required) -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+            "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.mjs"
+        }
+    }
+    </script>
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Saad Hwareen",
+        "alternateName": "Saad",
+        "url": "https://sa3d95.online",
+        "jobTitle": "Software Developer & Engineer",
+        "sameAs": [
+            "https://github.com/s3d95",
+            "https://www.instagram.com/saad_hwareen/",
+            "https://www.facebook.com/s3d95/"
+        ]
+    }
+    </script>
+
     <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3525357385323761"
-  crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3525357385323761"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <!-- Elite Preloader -->
-    <div id="preloader">
+    <!-- ===== Preloader ===== -->
+    <div id="preloader" aria-hidden="true">
         <div class="loader-content">
-            <img src="logo.png" alt="Saad Logo" class="loader-logo">
-            <div class="loader-bar">
-                <div class="loader-progress"></div>
+            <div class="loader-ring">
+                <img src="logo.png" alt="" class="loader-logo">
             </div>
-            <div class="loader-text">INITIALIZING ENVIRONMENT...</div>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+            <div class="loader-text"><span id="loader-percent">0</span>% — INITIALIZING ENVIRONMENT</div>
         </div>
     </div>
 
-    <!-- Advanced Backgrounds -->
-    <div id="aurora-orb"></div>
-    <div class="noise-overlay"></div>
-    <canvas id="interactive-canvas"></canvas>
+    <!-- ===== Global layers ===== -->
+    <canvas id="scene-canvas" aria-hidden="true"></canvas>
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
-    <!-- Premium Navigation -->
-    <nav class="glass-nav">
-        <div class="nav-content">
-            <a href="#" class="logo hover-target">
-                <img src="logo.png" alt="Saad Logo" class="nav-logo">
+    <!-- ===== Navigation ===== -->
+    <header class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo" aria-label="Saad — home">
+                <img src="logo.png" alt="Saad logo">
+                <span>SAAD</span>
             </a>
-            <ul class="nav-links">
-                <li><a href="#about" class="hover-target hover-decrypt">About</a></li>
-                <li><a href="#skills" class="hover-target hover-decrypt">Core</a></li>
-                <li><a href="#projects" class="hover-target hover-decrypt">Works</a></li>
-                <li><a href="#contact" class="hover-target hover-decrypt">Contact</a></li>
-            </ul>
+            <a href="https://sa3d95.xyz" target="_blank" rel="noopener" class="nav-cta magnetic">
+                <i class="fas fa-vault"></i><span>Vault</span>
+            </a>
         </div>
-    </nav>
+    </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero text-center">
-            <div class="container">
-                <div class="reveal-up delay-1">
-                    <img src="logo.png" alt="Saad Logo" class="hero-logo">
-                </div>
-                <h1 class="reveal-up delay-1 title-gradient hover-decrypt">Saad</h1>
-                <h2 class="reveal-up delay-2 subtitle-gradient hover-decrypt">Full Stack Developer.</h2>
-                <p class="hero-desc reveal-up delay-3">
-                    Crafting dynamic websites and modern digital solutions. Passionate about innovation,
-                    user experience, and building highly optimized architectures.
+        <!-- ===== Hero ===== -->
+        <section id="hero" class="hero">
+            <div class="hero-bottom">
+                <h1 class="hero-heading chrome-text reveal">Hi, I'm Saad.<br>I build software.</h1>
+                <p class="hero-tagline reveal delay-1">
+                    Windows software, mobile apps, websites — and pretty much anything else.
                 </p>
-                <div class="hero-actions reveal-up delay-4">
+                <div class="hero-actions reveal delay-2">
                     <div class="magnetic-wrap">
-                        <a href="https://sa3d95.xyz" target="_blank" class="btn btn-primary magnetic hover-target">
-    <i class="fas fa-vault"></i> View vault 
-</a>
-                        
+                        <a href="https://sa3d95.xyz" target="_blank" rel="noopener"
+                            class="btn btn-primary magnetic hover-target">
+                            <i class="fas fa-vault"></i> Visit Vault
+                        </a>
+                    </div>
+                    <div class="magnetic-wrap">
+                        <a href="https://github.com/s3d95" target="_blank" rel="noopener"
+                            class="btn btn-ghost magnetic hover-target">
+                            <i class="fab fa-github"></i> View GitHub
+                        </a>
                     </div>
                 </div>
             </div>
 
-
+            <!-- Static fallback if WebGL is unavailable -->
+            <img src="logo.png" alt="Saad emblem" class="hero-fallback" hidden>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="section dark-section">
+        <!-- ===== About ===== -->
+        <section id="about" class="section">
             <div class="container">
-                <div class="about-grid">
-                    <div class="about-text reveal-up">
-                        <span class="badge">The Foundation</span>
-                        <h2 class="section-title">Root-level.<br>Understanding.</h2>
-                        <p class="lead">
-                            I don't just use tools; I dissect them. Focusing heavily on logic, performance, and user
-                            experience.
-                        </p>
-                        <p class="text-muted">
-                            As a passionate Full Stack Developer, my experience spans across modern web ecosystems.
-                            I thrive on optimizing the un-optimizable, delivering flawless frontend interfaces backed by
-                            impenetrable and scalable server-side architecture.
-                        </p>
-                    </div>
-                    <div class="about-visual reveal-up delay-2">
-                        <div class="terminal-window spotlight-card magnetic">
+                <div class="section-head reveal">
+                    <h2 class="section-title">A bit<br><span class="chrome-text">about me.</span></h2>
+                </div>
+
+                <div class="about-top">
+                    <div class="about-terminal reveal">
+                        <div class="terminal-window">
                             <div class="terminal-header">
-                                <span class="dot red"></span><span class="dot yellow"></span><span
-                                    class="dot green"></span>
-                                <div class="terminal-title">saad@root-sys:~</div>
+                                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                                <span class="terminal-title">saad@root-sys: ~</span>
                             </div>
-                            <div class="terminal-body" id="terminal-body">
-                                <!-- Typewriter logic inserts lines here -->
-                            </div>
+                            <div class="terminal-body" id="terminal-body"></div>
                         </div>
                     </div>
+
+                    <div class="about-photo reveal delay-1">
+                        <div class="portrait-circle tilt-3d">
+                            <img src="saad.png" alt="Portrait of Saad Hwareen" loading="lazy">
+                        </div>
+                        <div class="portrait-tag"><span class="status-dot"></span> Available for work</div>
+                    </div>
+                </div>
+
+                <div class="about-text reveal delay-1">
+                    <p class="lead">
+                        I'm a software developer who likes building things that are
+                        simple, fast, and easy to use.
+                    </p>
+                    <p class="muted">
+                        From Windows software to mobile apps to websites, I build across
+                        platforms — front to back. I care about clean code and software
+                        that just works.
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="section" style="position: relative;">
-            <div class="marquee-container">
-                <div class="marquee-content">
-                    FULL STACK ARCHITECTURE • HIGH PERFORMANCE SYSTEMS • REVERSE ENGINEERING • SECURE NETWORKS • FULL
-                    STACK ARCHITECTURE • HIGH PERFORMANCE SYSTEMS • REVERSE ENGINEERING • SECURE NETWORKS •
+        <!-- ===== Skills ===== -->
+        <section id="skills" class="section">
+            <div class="marquee" aria-hidden="true">
+                <div class="marquee-track">
+                    <span>FULL-STACK DEVELOPMENT • WEB APPS • CLEAN CODE • FAST WEBSITES • </span>
+                    <span>FULL-STACK DEVELOPMENT • WEB APPS • CLEAN CODE • FAST WEBSITES • </span>
                 </div>
             </div>
+
             <div class="container">
-                <div class="text-center reveal-up">
-                    <span class="badge">Arsenal</span>
-                    <h2 class="section-title">The power behind.<br>The innovation.</h2>
+                <div class="section-head reveal">
+                    <h2 class="section-title">What I<br><span class="chrome-text">work with.</span></h2>
                 </div>
 
                 <div class="skills-grid">
-                    <div class="skill-box spotlight-card magnetic hover-target reveal-up delay-1">
-                        <i class="fab fa-react glow-icon"></i>
-                        <h3>Frontend Architecture</h3>
-                        <p>React, Next.js, WebGL. Crafting pixel-perfect, 120fps interfaces.</p>
-                    </div>
-                    <div class="skill-box spotlight-card magnetic hover-target reveal-up delay-2">
-                        <i class="fas fa-network-wired glow-icon"></i>
-                        <h3>Backend & Systems</h3>
-                        <p>Node.js, C++. Highly concurrent, scalable, and encrypted networks.</p>
-                    </div>
-                    <div class="skill-box spotlight-card magnetic hover-target reveal-up delay-3">
-                        <i class="fas fa-shield-halved glow-icon"></i>
-                        <h3>Security & RE</h3>
-                        <p>Memory analysis, Packet Sniffing, and robust anti-exploit logic.</p>
-                    </div>
+                    <article class="skill-card glass tilt-3d hover-target reveal">
+                        <div class="skill-icon"><i class="fab fa-react"></i></div>
+                        <h3>Front-End</h3>
+                        <p>The part people see — clean, responsive, and quick to load.</p>
+                        <ul class="tag-list">
+                            <li>React</li><li>Next.js</li><li>WebGL</li><li>Three.js</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-card glass tilt-3d hover-target reveal delay-1">
+                        <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
+                        <h3>Back-End</h3>
+                        <p>APIs, servers, and databases that stay fast and reliable.</p>
+                        <ul class="tag-list">
+                            <li>Node.js</li><li>C++</li><li>APIs</li><li>Databases</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-card glass tilt-3d hover-target reveal delay-2">
+                        <div class="skill-icon"><i class="fas fa-shield-halved"></i></div>
+                        <h3>Security</h3>
+                        <p>Finding weak spots and keeping apps and data safe.</p>
+                        <ul class="tag-list">
+                            <li>Reverse Eng.</li><li>Networking</li><li>Hardening</li>
+                        </ul>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- GitHub Section -->
-        <section id="projects" class="section dark-section">
-            <div class="container">
-                <div class="text-center reveal-up">
-                    <span class="badge">Open Source Deployments</span>
-                    <h2 class="section-title">All my work.<br>Live on GitHub.</h2>
-                    <p class="lead" style="max-width: 600px; margin: 0 auto 3rem auto;">
-                        My complete portfolio of web applications, experiments, and system architectures is documented
-                        and open-sourced on my GitHub profile.
+        <!-- ===== Contact ===== -->
+        <section id="contact" class="section section-contact">
+            <div class="container text-center">
+                <div class="section-head reveal">
+                    <h2 class="section-title chrome-text">Get in touch.</h2>
+                    <p class="section-sub center">
+                        Got a project in mind, or just want to say hi? You'll find me here.
                     </p>
                 </div>
 
-                <div class="projects-grid" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto;">
-                    <div class="project-card spotlight-card reveal-up hover-target"
-                        style="height: auto; min-height: 400px; padding-bottom: 2rem;">
-                        <div class="project-content"
-                            style="align-items: center; justify-content: center; width: 100%; text-align: center;">
-                            <i class="fab fa-github" style="font-size: 5rem; color: #fff; margin-bottom: 2rem;"></i>
-                            <h3 style="font-size: 2.5rem; margin-bottom: 1rem;">@s3d95</h3>
-                            <p style="margin-bottom: 2rem; max-width: 400px;">Explore repositories ranging from modern
-                                React applications to backend algorithms.</p>
-                            <a href="https://github.com/s3d95" target="_blank"
-                                class="btn btn-primary magnetic hover-target" style="margin-top: 1rem;">Access
-                                Repositories <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
-                        </div>
-                        <div class="project-bg bg-gradient-2"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section" style="position: relative;">
-            <div class="contact-glow"></div>
-            <div class="container text-center reveal-up">
-                <h2 class="section-title title-gradient">Initiate Contact.</h2>
-                <p class="lead" style="max-width: 600px; margin: 0 auto 4rem auto;">
-                    Have an impossible engineering challenge? Let's compile a solution together.
-                </p>
-
-                <div class="contact-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 4rem; max-width: 950px; margin: 0 auto;">
-                    
-                    <!-- Discord Card -->
-                    <div class="project-card spotlight-card reveal-up hover-target" style="width: 240px; height: 240px; padding: 2.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-direction: column;">
-                        <i class="fab fa-discord" style="font-size: 4.5rem; color: #fff; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); margin-bottom: 0.5rem;"></i>
-                        <h3 style="font-size: 1.6rem; margin: 0; font-weight: 700;">Discord</h3>
-                        
-                        <div class="magnetic-wrap" style="width: 100%; margin-top: auto;">
-                            <a href="https://discordapp.com/users/498133108118519839" target="_blank" class="btn btn-primary magnetic hover-target" style="display: flex; justify-content: center; align-items: center; width: 100%; border-radius: 12px; padding: 12px 0;">
-                                Connect <i class="fas fa-arrow-right" style="margin-left: 6px;"></i>
-                            </a>
-                        </div>
-                        <div class="project-bg" style="background: radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 70%);"></div>
-                    </div>
-
-                    <!-- Instagram Card -->
-                    <div class="project-card spotlight-card reveal-up delay-1 hover-target" style="width: 240px; height: 240px; padding: 2.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-direction: column;">
-                        <i class="fab fa-instagram" style="font-size: 4.5rem; color: #fff; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); margin-bottom: 0.5rem;"></i>
-                        <h3 style="font-size: 1.6rem; margin: 0; font-weight: 700;">Instagram</h3>
-                        
-                        <div class="magnetic-wrap" style="width: 100%; margin-top: auto;">
-                            <a href="https://www.instagram.com/saad_hwareen/" target="_blank" class="btn btn-primary magnetic hover-target" style="display: flex; justify-content: center; align-items: center; width: 100%; border-radius: 12px; padding: 12px 0;">
-                                Follow <i class="fas fa-arrow-right" style="margin-left: 6px;"></i>
-                            </a>
-                        </div>
-                        <div class="project-bg" style="background: radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 70%);"></div>
-                    </div>
-
-                    <!-- Facebook Card -->
-                    <div class="project-card spotlight-card reveal-up delay-2 hover-target" style="width: 240px; height: 240px; padding: 2.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-direction: column;">
-                        <i class="fab fa-facebook" style="font-size: 4.5rem; color: #fff; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); margin-bottom: 0.5rem;"></i>
-                        <h3 style="font-size: 1.6rem; margin: 0; font-weight: 700;">Facebook</h3>
-                        
-                        <div class="magnetic-wrap" style="width: 100%; margin-top: auto;">
-                            <a href="https://www.facebook.com/s3d95/" target="_blank" class="btn btn-primary magnetic hover-target" style="display: flex; justify-content: center; align-items: center; width: 100%; border-radius: 12px; padding: 12px 0;">
-                                Connect <i class="fas fa-arrow-right" style="margin-left: 6px;"></i>
-                            </a>
-                        </div>
-                        <div class="project-bg" style="background: radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 70%);"></div>
-                    </div>
-
+                <div class="contact-grid">
+                    <a href="https://discordapp.com/users/498133108118519839" target="_blank" rel="noopener"
+                        class="contact-card glass tilt-3d hover-target reveal">
+                        <i class="fab fa-discord"></i>
+                        <h3>Discord</h3>
+                        <span class="contact-link">Connect <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <a href="https://www.instagram.com/saad_hwareen/" target="_blank" rel="noopener"
+                        class="contact-card glass tilt-3d hover-target reveal delay-1">
+                        <i class="fab fa-instagram"></i>
+                        <h3>Instagram</h3>
+                        <span class="contact-link">Follow <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <a href="https://www.facebook.com/s3d95/" target="_blank" rel="noopener"
+                        class="contact-card glass tilt-3d hover-target reveal delay-2">
+                        <i class="fab fa-facebook"></i>
+                        <h3>Facebook</h3>
+                        <span class="contact-link">Connect <i class="fas fa-arrow-right"></i></span>
+                    </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="container text-center hover-target">
-            <img src="logo.png" alt="Saad Logo" class="footer-logo">
-            <p>Architected with precision by Saad</p>
-            <p class="copyright">Copyright © 2026 Saad. Root privileges required to copy.</p>
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a href="#hero" class="footer-logo hover-target">
+                <img src="logo.png" alt="Saad logo">
+                <span>SAAD</span>
+            </a>
+            <p class="footer-tagline">Made by <strong>Saad</strong></p>
+            <p class="footer-copy">© 2026 Saad. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 
 </html>
