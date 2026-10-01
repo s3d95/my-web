@@ -102,21 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', onNavScroll, { passive: true });
     onNavScroll();
 
-    /* ---------- Mobile menu ---------- */
-    const burger = document.getElementById('nav-burger');
-    const menu = document.getElementById('mobile-menu');
-    if (burger && menu) {
-        const toggle = (open) => {
-            burger.classList.toggle('open', open);
-            menu.classList.toggle('open', open);
-            burger.setAttribute('aria-expanded', open);
-            menu.setAttribute('aria-hidden', !open);
-            document.body.style.overflow = open ? 'hidden' : '';
-        };
-        burger.addEventListener('click', () => toggle(!menu.classList.contains('open')));
-        menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggle(false)));
-    }
-
     /* ---------- Scroll progress bar ---------- */
     const bar = document.querySelector('.scroll-progress span');
     if (bar) {
@@ -217,69 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         to.observe(termBody);
     }
 
-    /* ---------- Live GitHub repos ---------- */
-    loadRepos();
+    /* ---------- Footer year ---------- */
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
-
-/* ---------- GitHub repos (progressive enhancement) ---------- */
-async function loadRepos() {
-    const grid = document.getElementById('repos-grid');
-    if (!grid) return;
-    try {
-        const res = await fetch('https://api.github.com/users/s3d95/repos?sort=updated&per_page=100');
-        if (!res.ok) throw new Error('GitHub API ' + res.status);
-        let repos = await res.json();
-        if (!Array.isArray(repos) || repos.length === 0) throw new Error('no repos');
-
-        repos = repos
-            .filter((r) => !r.fork)
-            .sort((a, b) => (b.stargazers_count - a.stargazers_count) ||
-                (new Date(b.updated_at) - new Date(a.updated_at)))
-            .slice(0, 6);
-
-        if (repos.length === 0) throw new Error('only forks');
-
-        grid.innerHTML = '';
-        repos.forEach((r, i) => {
-            const a = document.createElement('a');
-            a.href = r.html_url; a.target = '_blank'; a.rel = 'noopener';
-            a.className = 'repo-card glass tilt-3d hover-target reveal' + (i % 3 ? ` delay-${i % 3}` : '');
-            a.innerHTML = `
-                <div class="repo-top"><i class="far fa-folder-open"></i><h3>${escapeHtml(r.name)}</h3></div>
-                <p>${escapeHtml(r.description || 'No description provided.')}</p>
-                <div class="repo-meta">
-                    ${r.language ? `<span><span class="lang-dot"></span>${escapeHtml(r.language)}</span>` : ''}
-                    <span><i class="far fa-star"></i>${r.stargazers_count}</span>
-                    <span><i class="fas fa-code-branch"></i>${r.forks_count}</span>
-                </div>`;
-            grid.appendChild(a);
-        });
-
-        // Wire up the freshly-added cards.
-        const io = new IntersectionObserver((es, o) => {
-            es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); o.unobserve(e.target); } });
-        }, { threshold: 0.12 });
-        grid.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-        if (!isTouch && window.innerWidth > 900) {
-            grid.querySelectorAll('.glass').forEach((card) => {
-                card.addEventListener('pointermove', (e) => {
-                    const rr = card.getBoundingClientRect();
-                    card.style.setProperty('--mx', `${e.clientX - rr.left}px`);
-                    card.style.setProperty('--my', `${e.clientY - rr.top}px`);
-                });
-            });
-        }
-    } catch (err) {
-        grid.innerHTML = `
-            <div class="repo-card glass reveal in" style="grid-column:1/-1;text-align:center;align-items:center;">
-                <i class="fab fa-github" style="font-size:3rem;margin:0 auto .6rem;"></i>
-                <h3 style="margin:0 auto;">@s3d95</h3>
-                <p style="text-align:center;">A few of my public projects live here.</p>
-            </div>`;
-    }
-}
-
-function escapeHtml(str) {
-    return String(str).replace(/[&<>"']/g, (c) =>
-        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
