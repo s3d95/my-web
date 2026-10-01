@@ -20,26 +20,42 @@
     <meta property="og:description"
         content="Building Windows software, mobile apps, and websites — clean, fast, and reliable.">
     <meta property="og:image" content="https://sa3d95.online/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Saad — chrome emblem logo">
     <meta property="og:url" content="https://sa3d95.online/">
+    <meta property="og:site_name" content="Saad">
+    <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Saad — Software Developer & Engineer">
     <meta name="twitter:description"
         content="Building Windows software, mobile apps, and websites — clean, fast, and reliable.">
     <meta name="twitter:image" content="https://sa3d95.online/og-image.jpg">
+    <meta name="twitter:image:alt" content="Saad — chrome emblem logo">
 
     <!-- Icons / PWA -->
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="logo-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Without JavaScript: drop the preloader and show all content -->
+    <noscript>
+        <style>
+            #preloader { display: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+            .hero-fallback { display: block !important; }
+        </style>
+    </noscript>
 
     <!-- 3D engine (ES modules via CDN — no build step required) -->
     <script type="importmap">
@@ -60,6 +76,7 @@
         "name": "Saad Hwareen",
         "alternateName": "Saad",
         "url": "https://sa3d95.online",
+        "image": "https://sa3d95.online/saad.webp",
         "jobTitle": "Software Developer & Engineer",
         "sameAs": [
             "https://github.com/s3d95",
@@ -79,7 +96,7 @@
     <div id="preloader" aria-hidden="true">
         <div class="loader-content">
             <div class="loader-ring">
-                <img src="logo.png" alt="" class="loader-logo">
+                <img src="logo-192.webp" alt="" class="loader-logo" width="48" height="48">
             </div>
             <div class="loader-bar"><div class="loader-progress"></div></div>
             <div class="loader-text"><span id="loader-percent">0</span>% — INITIALIZING ENVIRONMENT</div>
@@ -97,11 +114,11 @@
     <header class="nav" id="nav">
         <div class="nav-inner">
             <a href="#hero" class="nav-logo" aria-label="Saad — home">
-                <img src="logo.png" alt="Saad logo">
+                <img src="logo-192.webp" alt="" width="38" height="38">
                 <span>SAAD</span>
             </a>
-            <a href="https://sa3d95.xyz" target="_blank" rel="noopener" class="nav-cta magnetic">
-                <i class="fas fa-vault"></i><span>Vault</span>
+            <a href="https://sa3d95.xyz" target="_blank" rel="noopener noreferrer" class="nav-cta magnetic">
+                <i class="fas fa-vault" aria-hidden="true"></i><span>Vault</span>
             </a>
         </div>
     </header>
@@ -116,22 +133,22 @@
                 </p>
                 <div class="hero-actions reveal delay-2">
                     <div class="magnetic-wrap">
-                        <a href="https://sa3d95.xyz" target="_blank" rel="noopener"
+                        <a href="https://sa3d95.xyz" target="_blank" rel="noopener noreferrer"
                             class="btn btn-primary magnetic hover-target">
-                            <i class="fas fa-vault"></i> Visit Vault
+                            <i class="fas fa-vault" aria-hidden="true"></i> Visit Vault
                         </a>
                     </div>
                     <div class="magnetic-wrap">
-                        <a href="https://github.com/s3d95" target="_blank" rel="noopener"
+                        <a href="https://github.com/s3d95" target="_blank" rel="noopener noreferrer"
                             class="btn btn-ghost magnetic hover-target">
-                            <i class="fab fa-github"></i> View GitHub
+                            <i class="fab fa-github" aria-hidden="true"></i> View GitHub
                         </a>
                     </div>
                 </div>
             </div>
 
             <!-- Static fallback if WebGL is unavailable -->
-            <img src="logo.png" alt="Saad emblem" class="hero-fallback" hidden>
+            <img src="logo.png" alt="Saad emblem" class="hero-fallback" width="512" height="512" hidden>
         </section>
 
         <!-- ===== About ===== -->
@@ -148,13 +165,18 @@
                                 <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
                                 <span class="terminal-title">saad@root-sys: ~</span>
                             </div>
-                            <div class="terminal-body" id="terminal-body"></div>
+                            <div class="terminal-body" id="terminal-body" aria-hidden="true"></div>
+                            <p class="sr-only">whoami: Saad Hwareen, software developer — Windows apps, mobile apps and websites. Open to work.</p>
                         </div>
                     </div>
 
                     <div class="about-photo reveal delay-1">
                         <div class="portrait-circle tilt-3d">
-                            <img src="saad.png" alt="Portrait of Saad Hwareen" loading="lazy">
+                            <picture>
+                                <source srcset="saad.webp" type="image/webp">
+                                <img src="saad.png" alt="Portrait of Saad Hwareen" width="560" height="560"
+                                    loading="lazy" decoding="async">
+                            </picture>
                         </div>
                         <div class="portrait-tag"><span class="status-dot"></span> Available for work</div>
                     </div>
@@ -190,7 +212,7 @@
 
                 <div class="skills-grid">
                     <article class="skill-card glass tilt-3d hover-target reveal">
-                        <div class="skill-icon"><i class="fab fa-react"></i></div>
+                        <div class="skill-icon"><i class="fab fa-react" aria-hidden="true"></i></div>
                         <h3>Front-End</h3>
                         <p>The part people see — clean, responsive, and quick to load.</p>
                         <ul class="tag-list">
@@ -199,7 +221,7 @@
                     </article>
 
                     <article class="skill-card glass tilt-3d hover-target reveal delay-1">
-                        <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
+                        <div class="skill-icon"><i class="fas fa-network-wired" aria-hidden="true"></i></div>
                         <h3>Back-End</h3>
                         <p>APIs, servers, and databases that stay fast and reliable.</p>
                         <ul class="tag-list">
@@ -208,7 +230,7 @@
                     </article>
 
                     <article class="skill-card glass tilt-3d hover-target reveal delay-2">
-                        <div class="skill-icon"><i class="fas fa-shield-halved"></i></div>
+                        <div class="skill-icon"><i class="fas fa-shield-halved" aria-hidden="true"></i></div>
                         <h3>Security</h3>
                         <p>Finding weak spots and keeping apps and data safe.</p>
                         <ul class="tag-list">
@@ -230,23 +252,23 @@
                 </div>
 
                 <div class="contact-grid">
-                    <a href="https://discordapp.com/users/498133108118519839" target="_blank" rel="noopener"
+                    <a href="https://discord.com/users/498133108118519839" target="_blank" rel="noopener noreferrer"
                         class="contact-card glass tilt-3d hover-target reveal">
-                        <i class="fab fa-discord"></i>
+                        <i class="fab fa-discord" aria-hidden="true"></i>
                         <h3>Discord</h3>
-                        <span class="contact-link">Connect <i class="fas fa-arrow-right"></i></span>
+                        <span class="contact-link">Connect <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
                     </a>
-                    <a href="https://www.instagram.com/saad_hwareen/" target="_blank" rel="noopener"
+                    <a href="https://www.instagram.com/saad_hwareen/" target="_blank" rel="noopener noreferrer"
                         class="contact-card glass tilt-3d hover-target reveal delay-1">
-                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
                         <h3>Instagram</h3>
-                        <span class="contact-link">Follow <i class="fas fa-arrow-right"></i></span>
+                        <span class="contact-link">Follow <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
                     </a>
-                    <a href="https://www.facebook.com/s3d95/" target="_blank" rel="noopener"
+                    <a href="https://www.facebook.com/s3d95/" target="_blank" rel="noopener noreferrer"
                         class="contact-card glass tilt-3d hover-target reveal delay-2">
-                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-facebook" aria-hidden="true"></i>
                         <h3>Facebook</h3>
-                        <span class="contact-link">Connect <i class="fas fa-arrow-right"></i></span>
+                        <span class="contact-link">Connect <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
                     </a>
                 </div>
             </div>
@@ -256,12 +278,12 @@
     <!-- ===== Footer ===== -->
     <footer class="footer">
         <div class="container footer-inner">
-            <a href="#hero" class="footer-logo hover-target">
-                <img src="logo.png" alt="Saad logo">
+            <a href="#hero" class="footer-logo hover-target" aria-label="Saad — back to top">
+                <img src="logo-192.webp" alt="" width="40" height="40" loading="lazy">
                 <span>SAAD</span>
             </a>
             <p class="footer-tagline">Made by <strong>Saad</strong></p>
-            <p class="footer-copy">© 2026 Saad. All rights reserved.</p>
+            <p class="footer-copy">© <span id="year">2026</span> Saad. All rights reserved.</p>
         </div>
     </footer>
 

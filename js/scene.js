@@ -94,7 +94,23 @@ export async function initScene(canvas, opts = {}) {
     let running = true;
     let lastW = window.innerWidth;
     let lastH = window.innerHeight;
-    const baseY = isMobile ? 1.05 : 0.9;
+    let baseY = isMobile ? 1.05 : 0.9;
+    let fit = 1;
+
+    // Fit the emblem into the space between the nav and the hero heading, so on
+    // shorter screens (e.g. 1366x768 laptops) it never overlaps the text.
+    const heroText = document.querySelector('.hero-bottom');
+    function layoutEmblem() {
+        if (!heroText) return;
+        const H = window.innerHeight;
+        const unitsPerPx = (2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))) / H;
+        const top = 80;                                              // below the nav
+        const bottom = Math.min(H, Math.max(top + 140, heroText.offsetTop - 16));
+        fit = Math.min(1, ((bottom - top) * unitsPerPx) / (targetSize + 0.25));
+        baseY = (H / 2 - (top + bottom) / 2) * unitsPerPx;
+    }
+    layoutEmblem();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutEmblem);
 
     function onPointerMove(e) {
         pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -106,22 +122,44 @@ export async function initScene(canvas, opts = {}) {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
+        layoutEmblem();
     }
     window.addEventListener('resize', onResize);
 
-    document.addEventListener('visibilitychange', () => { running = !document.hidden; if (running) loop(); });
+    // Single render loop: track the frame id so resuming never starts a second loop.
+    let rafId = 0;
+    function start() {
+        running = true;
+        if (!rafId) rafId = requestAnimationFrame(loop);
+    }
+    function stop() {
+        running = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = 0;
+    }
 
-    // Release the WebGL context on navigation so reloads don't leak GPU contexts.
-    function freeContext() { running = false; try { renderer.forceContextLoss(); } catch (e) { } try { renderer.dispose(); } catch (e) { } }
-    window.addEventListener('pagehide', freeContext);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
+
+    // Release the WebGL context on real navigation so reloads don't leak GPU contexts.
+    // If the page goes into the back/forward cache, only pause — otherwise the canvas
+    // would come back blank when the user returns.
+    function onPageHide(e) {
+        stop();
+        if (e.persisted) return;
+        try { renderer.forceContextLoss(); } catch (err) { }
+        try { renderer.dispose(); } catch (err) { }
+    }
+    window.addEventListener('pagehide', onPageHide);
+    window.addEventListener('pageshow', (e) => { if (e.persisted && !document.hidden) start(); });
 
     // ---- Render loop ----
     const clock = new THREE.Clock();
     let firstFrame = true;
 
     function loop() {
+        rafId = 0;
         if (!running) return;
-        requestAnimationFrame(loop);
+        rafId = requestAnimationFrame(loop);
 
         // Self-heal sizing (guards against load-time race where the
         // viewport reports a transient 1px width before settling).
@@ -148,7 +186,7 @@ export async function initScene(canvas, opts = {}) {
         // (keeps spinning, but stops competing with the section content).
         const dimT = Math.min(sY / (window.innerHeight * 0.7), 1);
         root.position.y = baseY + (reduceMotion ? 0 : Math.sin(t * 0.9) * 0.08) - dimT * 0.5;
-        root.scale.setScalar(1 - dimT * 0.28);
+        root.scale.setScalar(fit * (1 - dimT * 0.28));
 
         if (!reduceMotion) stars.rotation.y = t * 0.02;
 
@@ -162,15 +200,16 @@ export async function initScene(canvas, opts = {}) {
             onReady();
         }
     }
-    loop();
+    start();
 
     return {
-        pause() { running = false; },
-        resume() { if (!running) { running = true; loop(); } },
+        pause: stop,
+        resume: start,
         dispose() {
-            running = false;
+            stop();
             window.removeEventListener('pointermove', onPointerMove);
             window.removeEventListener('resize', onResize);
+            window.removeEventListener('pagehide', onPageHide);
             renderer.dispose();
             material.dispose();
             logo.children.forEach((m) => m.geometry.dispose());
